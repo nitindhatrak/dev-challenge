@@ -1,0 +1,53 @@
+<html>
+<head>
+    <!--
+    This is the library that provides websocket streaming pub/sub
+    The dev serverver is serving the html and javascript, but it also provides updating fx data on /fx/prices.
+     -->
+     <title>Feed Application</title>
+    <script src="stomp.js"></script>
+    <script src="sparkline.js"></script>
+</head>
+<body>
+
+<!-- This is a description of what you should do for this task.  You can remove it for your answer -->
+<section class="content">
+   
+    <h3>Feed Table:</h3>         
+    <section id="stomp-status">
+       
+    </section>
+
+    <h3>Solution Approach</h3>
+    <section>
+        <ul>
+            <li>Each published message is pushed to a MessageQueue</li>
+            <li>We have an application wide EventPipeline, that can be used to add messages and their subscribers</li>
+            <li>Once the message is pushed to the messagequeue, we start iterating the queue and call subscribers</li>
+            <li>The subscriber for for adding row triggers a method to create or update values in the table</li>
+            <li>We use name in th published as an id field when creating rows</li>
+            <li>So the next time message with same name gets published we know it is an update opertaion by checking the Id</li>
+            <li>When adding or updating rows, we first check the lastChangeAsk with each elements lastChangeAsk</li>
+            <li>This way we find the position to insert the row in the table</li>
+            <li>For sparklines we maintain a seperate Array</li>
+            <li>Midprice is calculated for each message and pushed to sparklines array</li>
+            <li>After every 30 seconds we update the sparkline to show last 30 seconds of data</li>  
+        </ul>
+    </section>
+
+    <section>
+        <h3>Possible Technology Stack</h3>
+        <ul>
+            <li>A real time messaging system like Lightstreamer</li>
+            <li>Javascript framework like Angular or React for a better structured app</li>
+            <li>For data display ag-grid which will simplify creating and managing renderers</li>
+        </ul>
+    <section>
+    
+</section>
+
+
+<script src="bundle.js"></script>
+
+</body>
+</html>
